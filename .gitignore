@@ -1,0 +1,6 @@
+node_modules/
+out/
+public/_reel/
+.env
+*.log
+.DS_Store

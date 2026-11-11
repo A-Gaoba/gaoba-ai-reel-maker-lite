@@ -1,0 +1,27 @@
+{
+  "name": "gaoba-ai-reel-maker-lite",
+  "version": "0.1.0",
+  "description": "A tiny Claude Code skill + Remotion template that turns one line into an animated vertical reel (MP4).",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "check": "node scripts/check.mjs",
+    "preview": "node scripts/render.mjs --stills",
+    "render": "node scripts/render.mjs",
+    "voice": "node scripts/voice.mjs"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.542",
+    "@remotion/google-fonts": "4.0.542",
+    "@remotion/media-utils": "4.0.542",
+    "@remotion/renderer": "4.0.542",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.542"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "typescript": "5.6.3"
+  }
+}

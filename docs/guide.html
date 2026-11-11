@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>GAOBA AI Reel Maker Lite — دليل المبتدئ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root { --paper:#F4F1EA; --ink:#161616; --red:#FF4A1C; --mute:#6f6b63; --card:#fff; --line:#e2ddd2; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:var(--paper); color:var(--ink); font-family:"Readex Pro", sans-serif; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .page { width:210mm; height:297mm; padding:16mm 17mm 16mm; position:relative; overflow:hidden; page-break-after:always; }
+  .page:last-child { page-break-after:auto; }
+  .foot { position:absolute; bottom:8mm; left:17mm; right:17mm; display:flex; justify-content:space-between; font-size:8.5pt; color:var(--mute); border-top:1px solid var(--line); padding-top:2.5mm; }
+  h1 { font-size:34pt; line-height:1.2; margin:0; font-weight:700; }
+  h2 { font-size:20pt; margin:0 0 4mm; font-weight:700; }
+  h3 { font-size:12.5pt; margin:0 0 1.5mm; font-weight:700; }
+  p, li { font-size:10.8pt; line-height:1.7; margin:0 0 2mm; }
+  ul, ol { margin:0; padding-inline-start:5mm; }
+  .red { color:var(--red); }
+  .mute { color:var(--mute); }
+  .ltr { direction:ltr; unicode-bidi:isolate; font-weight:600; }
+  .say { background:var(--ink); color:var(--paper); border-radius:5mm; padding:2.6mm 5.5mm; font-size:12pt; font-weight:600; display:inline-block; margin:1mm 0 2.5mm; }
+  .card { background:var(--card); border-radius:5mm; padding:5mm 6.5mm; box-shadow:0 2mm 6mm rgba(60,45,20,.08); }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:6mm; }
+  .tag { display:inline-block; background:var(--red); color:#fff; border-radius:99px; padding:1mm 4.5mm; font-size:9.5pt; font-weight:600; }
+  .note { border-inline-start:1.4mm solid var(--red); padding:1mm 5mm; margin:3.5mm 0; }
+  .note p { margin:0; font-size:10.5pt; }
+  .time { display:inline-block; border:0.4mm solid var(--ink); border-radius:99px; padding:0.4mm 3.5mm; font-size:8.5pt; font-weight:600; margin-inline-start:2mm; vertical-align:middle; }
+
+  .cover { display:flex; flex-direction:column; }
+  .cover .kicker { font-size:12pt; font-weight:600; }
+  .cover h1 { font-size:42pt; margin-top:7mm; }
+  .cover .sub { font-size:14.5pt; margin-top:6mm; line-height:1.7; max-width:150mm; }
+  .fan { display:flex; gap:5mm; justify-content:center; margin:10mm 0 7mm; direction:ltr; }
+  .fan img { width:44mm; border-radius:4mm; box-shadow:0 4mm 10mm rgba(60,45,20,.18); }
+  .fan img:nth-child(1) { transform:rotate(-5deg) translateY(4mm); }
+  .fan img:nth-child(3) { transform:rotate(5deg) translateY(4mm); }
+  .linkbox { border:0.6mm dashed var(--ink); border-radius:5mm; padding:4mm 7mm; }
+  .linkbox .u { font-family:Consolas, monospace; direction:ltr; font-size:11.5pt; font-weight:700; text-align:left; margin-top:1.5mm; color:var(--red); }
+
+  .step { display:grid; grid-template-columns:80mm 1fr; gap:7mm; align-items:center; margin-bottom:5.5mm; }
+  .num { width:12mm; height:12mm; border-radius:3.4mm; background:var(--ink); color:var(--paper); font-weight:700; font-size:16pt; display:flex; align-items:center; justify-content:center; margin-bottom:2mm; }
+  .num.s { width:8mm; height:8mm; font-size:11pt; border-radius:2.4mm; display:inline-flex; margin:0 0 0 2mm; vertical-align:middle; }
+  .step p { margin-bottom:1.2mm; }
+  .ill { background:var(--card); border-radius:5mm; height:54mm; position:relative; overflow:hidden; box-shadow:0 2mm 6mm rgba(60,45,20,.08); direction:ltr; }
+  .win { position:absolute; inset:5mm; border-radius:3mm; background:#1c1b1a; color:#F4F1EA; padding:3.5mm 4.5mm; font-size:8.6pt; }
+  .win.light { background:#fff; color:var(--ink); border:0.4mm solid var(--line); }
+  .bar { display:flex; gap:1.4mm; margin-bottom:2.6mm; align-items:center; }
+  .bar i { width:2.4mm; height:2.4mm; border-radius:50%; background:#777; display:block; }
+  .bar b { margin-left:3mm; font-size:8pt; font-weight:600; color:#aaa; font-family:Consolas, monospace; }
+  .row { border-radius:2.2mm; background:#2b2a28; padding:2mm 3.5mm; margin-bottom:1.8mm; display:flex; justify-content:space-between; align-items:center; direction:rtl; font-size:9pt; }
+  .row.on { background:#F4F1EA; color:#161616; font-weight:700; }
+  .chk { width:4.2mm; height:4.2mm; border-radius:1.2mm; background:var(--red); color:#fff; font-size:8pt; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .btn { display:inline-block; border-radius:2mm; padding:1.6mm 4mm; font-weight:700; font-size:9pt; }
+  .btn.g { background:#2da44e; color:#fff; }
+  .btn.k { background:var(--ink); color:var(--paper); }
+  .menu { position:absolute; background:#fff; border:0.4mm solid var(--line); border-radius:2mm; box-shadow:0 2mm 5mm rgba(0,0,0,.15); font-size:8.6pt; padding:1.5mm 0; color:var(--ink); }
+  .menu div { padding:1.4mm 4mm; }
+  .menu .hot { background:var(--ink); color:var(--paper); font-weight:700; }
+  .folder { position:absolute; width:46mm; height:28mm; background:#fff; border:0.5mm solid var(--ink); border-radius:3mm; display:flex; align-items:center; justify-content:center; font-family:Consolas, monospace; font-weight:700; font-size:9.5pt; }
+  .folder:before { content:""; position:absolute; top:-4.6mm; left:-0.5mm; width:18mm; height:5.2mm; background:var(--ink); border-radius:2.2mm 2.2mm 0 0; }
+  .x { position:absolute; left:8mm; top:8mm; border:0.5mm solid var(--red); color:var(--red); border-radius:99px; padding:0.8mm 4mm; font-size:9pt; direction:rtl; font-weight:600; text-decoration:line-through; }
+  .ill img.shot { position:absolute; top:4.5mm; height:45mm; border-radius:2.5mm; box-shadow:0 2mm 5mm rgba(0,0,0,.18); }
+  .term { font-family:"Readex Pro", sans-serif; font-size:8.4pt; line-height:1.75; direction:rtl; text-align:right; }
+  .term .ok { color:#7ee787; } .term .no { color:#ff7b72; }
+  .path { font-family:Consolas, monospace; direction:ltr; unicode-bidi:isolate; background:#fff; border:0.3mm solid var(--line); border-radius:1.5mm; padding:0.3mm 2mm; font-size:9.5pt; }
+
+  .tight .ill { height:43mm; }
+  .tight .step { margin-bottom:3.5mm; }
+  .tight td, .tight th { padding:1.45mm 3mm; font-size:9.4pt; }
+  .tight p, .tight li { font-size:10.2pt; line-height:1.6; }
+  .tight .card { padding:3.5mm 6.5mm; }
+  table { width:100%; border-collapse:collapse; font-size:10pt; }
+  th, td { text-align:right; padding:2mm 3mm; border-bottom:1px solid var(--line); vertical-align:top; line-height:1.6; }
+  th { font-weight:700; }
+  .yes { color:#1a7f37; font-weight:700; } .part { color:#9a6700; font-weight:700; } .nop { color:var(--red); font-weight:700; }
+</style>
+</head>
+<body>
+
+<!-- 1 · cover -->
+<section class="page cover">
+  <div class="kicker"><span class="red">GAOBA AI</span> · دليل المبتدئ</div>
+  <h1>أول ريل متحرك لك<br>بـ <span class="ltr">Claude Code</span><br><span class="red">في ست خطوات</span></h1>
+  <p class="sub">دليل نسخة <span class="ltr">GAOBA AI Reel Maker Lite</span> المجانية: من مجلد فاضي إلى فيديو <span class="ltr">MP4</span> جاهز للنشر، بدون برنامج مونتاج وبدون خبرة برمجة.</p>
+  <div class="fan">
+    <img src="img/scene-01.png" alt="">
+    <img src="img/scene-03.png" alt="">
+    <img src="img/scene-06.png" alt="">
+  </div>
+  <p class="mute" style="text-align:center;font-size:9.5pt">لقطات من ريل المثال الموجود في المستودع، صُدّر بهذه النسخة نفسها.</p>
+  <div class="card" style="margin-top:6mm">
+    <h3>في هذا الدليل</h3>
+    <p style="margin:0">صفحة 2: ايش تحتاج · صفحة 3: تجهيز الجهاز · صفحة 4 و5: الخطوات الست · صفحة 6: أضف صوتك · صفحة 7: الفرق عن النظام الاحترافي والمشاكل الشائعة</p>
+  </div>
+  <div class="linkbox" style="margin-top:auto;margin-bottom:9mm">
+    <h3>رابط المستودع على GitHub</h3>
+    <div class="u">https://github.com/A-Gaoba/gaoba-ai-reel-maker-lite</div>
+  </div>
+  <div class="foot"><span>GAOBA AI Reel Maker Lite · v0.1</span><span class="ltr">@a_gaoba.ai</span></div>
+</section>
+
+<!-- 2 · before you start -->
+<section class="page">
+  <h2>ايش تحتاج قبل ما تبدأ</h2>
+  <div class="note"><p><b>بصراحة:</b> السطر الواحد يكفي <b>بعد</b> تجهيز يتم مرة واحدة. التجهيز يأخذ من 15 إلى 30 دقيقة أول مرة، وبعدها كل ريل جديد يبدأ من سطر.</p></div>
+  <table style="margin-top:4mm">
+    <tr><th style="width:38%">المطلوب</th><th>ملاحظة</th><th style="width:17%">التكلفة</th></tr>
+    <tr><td>كمبيوتر <span class="ltr">Windows</span> أو <span class="ltr">Mac</span></td><td>اختُبرت هذه النسخة على <span class="ltr">Windows 11</span> فقط. الجوال لا يكفي.</td><td>—</td></tr>
+    <tr><td>تطبيق <span class="ltr">Claude</span> للكمبيوتر</td><td><span class="ltr">Claude Code</span> غير متاح في الخطة المجانية: يحتاج خطة <span class="ltr">Pro</span> أو أعلى (حسب صفحة الأسعار الرسمية وقت كتابة الدليل).</td><td>اشتراك شهري</td></tr>
+    <tr><td><span class="ltr">Node.js</span> نسخة <span class="ltr">LTS</span></td><td>برنامج يشغّل أدوات الحركة والفيديو. تنزّله أنت مرة واحدة (صفحة 3).</td><td>مجاني</td></tr>
+    <tr><td>إنترنت</td><td>لتثبيت الحزم، ولتنزيل متصفح صغير للرسم (حوالي <span class="ltr">130 MB</span>، مرة واحدة)، ولتحميل الخط عند كل تصدير.</td><td>—</td></tr>
+    <tr><td>مساحة <span class="ltr">2 GB</span></td><td>للحزم والفيديوهات.</td><td>—</td></tr>
+  </table>
+  <div class="grid2" style="margin-top:7mm">
+    <div class="card">
+      <span class="tag">تحصل عليه</span>
+      <ul style="margin-top:3.5mm">
+        <li>ريل عمودي <span class="ltr">MP4</span> بدقة <span class="ltr">1080×1920</span>، طوله 20–45 ثانية</li>
+        <li>ستة أنواع مشاهد بحركة بينها</li>
+        <li>كلام مكتوب يظهر كلمة كلمة</li>
+        <li>صوتك أنت إن سجّلته (صفحة 6)</li>
+        <li>تعديل بالكلام العادي</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag" style="background:var(--ink)">ليس في نسخة Lite</span>
+      <ul style="margin-top:3.5mm">
+        <li>موسيقى ومؤثرات صوتية</li>
+        <li>صور ومقاطع ومشاهد ثلاثية الأبعاد</li>
+        <li>كاميرا سينمائية وانتقالات مخصصة لكل ريل</li>
+        <li>التحقق من المعلومات بدلًا عنك</li>
+        <li>النظام الكامل لريلز <span class="ltr">GAOBA AI</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card" style="margin-top:7mm">
+    <h3>كم يأخذ من الوقت؟ (قسناه على جهازنا)</h3>
+    <p style="margin:0">تثبيت الحزم: أقل من دقيقة · أول رسم للصور (ينزّل المتصفح): حوالي دقيقتين · تصدير الريل: أقل من دقيقة · ريل كامل من سطر واحد، أول مرة: حوالي 4 دقائق. جهازك وسرعة الإنترنت عندك قد يغيّران هذه الأرقام.</p>
+  </div>
+  <div class="foot"><span>ايش تحتاج قبل ما تبدأ</span><span>2</span></div>
+</section>
+
+<!-- 3 · setup -->
+<section class="page">
+  <h2>تجهيز الجهاز <span class="time">مرة واحدة</span></h2>
+  <p class="mute">ثلاثة أشياء تنزّلها بنفسك. Claude لا يقدر ينزّلها بدلًا عنك.</p>
+
+  <div class="step" style="margin-top:4mm">
+    <div>
+      <h3><span class="num s">أ</span> نزّل Node.js</h3>
+      <ol>
+        <li>افتح <span class="ltr">nodejs.org</span> في المتصفح.</li>
+        <li>اضغط زر التنزيل المكتوب عليه <span class="ltr"><b>LTS</b></span>.</li>
+        <li>افتح الملف الذي نزل، واضغط <span class="ltr">Next</span> حتى النهاية بدون تغيير أي خيار.</li>
+      </ol>
+    </div>
+    <div class="ill">
+      <div class="win light">
+        <div class="bar"><i></i><i></i><i></i><b>nodejs.org</b></div>
+        <div style="text-align:center;margin-top:5mm">
+          <div style="font-weight:700;font-size:12pt;margin-bottom:4mm">Node.js</div>
+          <span class="btn g">Download Node.js (LTS)</span>
+          <div style="font-size:7.5pt;color:#888;margin-top:3mm;direction:rtl">اختر الزر المكتوب عليه LTS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div>
+      <h3><span class="num s">ب</span> نزّل تطبيق Claude للكمبيوتر</h3>
+      <ol>
+        <li>افتح <span class="ltr">claude.com/download</span>.</li>
+        <li>نزّل نسخة <span class="ltr">Windows</span> أو <span class="ltr">macOS</span> وثبّتها.</li>
+        <li>سجّل الدخول بحسابك (خطة <span class="ltr">Pro</span> أو أعلى).</li>
+      </ol>
+      <p class="mute">لو كان التطبيق مفتوحًا قبل تثبيت <span class="ltr">Node.js</span>، أغلقه وافتحه من جديد.</p>
+    </div>
+    <div class="ill">
+      <div class="win light">
+        <div class="bar"><i></i><i></i><i></i><b>claude.com/download</b></div>
+        <div style="margin-top:4mm;display:flex;flex-direction:column;gap:3mm;align-items:center">
+          <span class="btn k">Download for macOS</span>
+          <span class="btn k">Download for Windows</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div>
+      <h3><span class="num s">ج</span> نزّل ملفات النسخة Lite</h3>
+      <ol>
+        <li>افتح رابط المستودع (في أول صفحة من الدليل).</li>
+        <li>اضغط الزر الأخضر <span class="ltr"><b>Code</b></span>، ثم <span class="ltr"><b>Download ZIP</b></span>.</li>
+        <li>اضغط على الملف بالزر الأيمن واختر <span class="ltr">Extract All</span> (في <span class="ltr">Mac</span>: نقرتين على الملف).</li>
+      </ol>
+    </div>
+    <div class="ill">
+      <div class="win light">
+        <div class="bar"><i></i><i></i><i></i><b>github.com/A-Gaoba/…</b></div>
+        <div style="text-align:right;margin-top:2mm"><span class="btn g">&lt;&gt; Code ▾</span></div>
+        <div class="menu" style="right:5mm;top:20mm;width:38mm">
+          <div>Clone</div>
+          <div>Open with GitHub Desktop</div>
+          <div class="hot">Download ZIP</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="mute" style="font-size:9pt">الرسومات في هذا الدليل توضيحية ومبسّطة: شكل المواقع والتطبيق عندك قد يختلف قليلًا.</p>
+  <div class="foot"><span>تجهيز الجهاز</span><span>3</span></div>
+</section>
+
+<!-- 4 · steps 1-3 -->
+<section class="page">
+  <h2>الخطوات <span class="red">1 – 3</span>: افتح المجلد في Claude</h2>
+
+  <div class="step">
+    <div>
+      <div class="num">1</div>
+      <h3>افتح تطبيق Claude، مش المتصفح</h3>
+      <p>شغّل التطبيق الذي ثبّته، واضغط تبويب <span class="ltr"><b>Code</b></span> في أعلى النافذة.</p>
+      <p class="mute">لماذا التطبيق؟ لأنه يشتغل على ملفات جهازك، والمتصفح لا يقدر.</p>
+    </div>
+    <div class="ill">
+      <div class="x">المتصفح</div>
+      <div class="win" style="inset:17mm 9mm 8mm">
+        <div class="bar"><i></i><i></i><i></i><b>Claude</b></div>
+        <div style="display:flex;gap:2mm;direction:ltr">
+          <span class="btn" style="background:#2b2a28;color:#aaa">Chat</span>
+          <span class="btn" style="background:#F4F1EA;color:#161616">Code ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div>
+      <div class="num">2</div>
+      <h3>سمِّ المجلد AI Video Editor</h3>
+      <p>المجلد الذي فككت ضغطه في صفحة 3: غيّر اسمه إلى <span class="ltr"><b>AI Video Editor</b></span> وانقله إلى مكان تعرفه، مثل سطح المكتب.</p>
+      <p class="mute">فيه التعليمات التي تعلّم Claude يسوّي الريل، وفيه يُحفظ كل ريل تخلّصه.</p>
+      <p class="mute">تأكد أنك ترى داخله مباشرة ملفات مثل <span class="ltr">README.md</span> و<span class="ltr">package.json</span>، مش مجلدًا آخر بنفس الاسم.</p>
+    </div>
+    <div class="ill">
+      <div class="folder" style="left:8mm;top:17mm">AI Video Editor</div>
+      <div style="position:absolute;left:60mm;top:7mm;font-family:Consolas,monospace;font-size:8pt;line-height:1.9;color:#161616">
+        📄 CLAUDE.md<br>📄 README.md<br>📄 package.json<br>📁 reels<br>📁 scripts<br>📁 src<br>📁 docs
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div>
+      <div class="num">3</div>
+      <h3>محادثة جديدة ← Local ← المجلد</h3>
+      <p>في تبويب <span class="ltr">Code</span> ابدأ محادثة جديدة. في الصف الذي تحت خانة الكتابة:</p>
+      <ol>
+        <li>اختر <span class="ltr"><b>Local</b></span> (يعني: على جهازك).</li>
+        <li>اضغط خانة المجلد واختر <span class="ltr">AI Video Editor</span>.</li>
+      </ol>
+      <p class="mute">فكذا Claude يقدر يقرأ ملفات المجلد ويكتب فيها. لو سألك التطبيق هل تثق بالمجلد، وافق.</p>
+    </div>
+    <div class="ill">
+      <div class="win">
+        <div class="bar"><i></i><i></i><i></i><b>Claude · Code</b></div>
+        <div class="row on"><span>محادثة جديدة</span><span class="chk">✓</span></div>
+        <div class="row on"><span><span class="ltr">Local</span> · على جهازك</span><span class="chk">✓</span></div>
+        <div class="row on"><span class="ltr">AI Video Editor</span><span class="chk">✓</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>الخطوات 1 – 3</span><span>4</span></div>
+</section>
+
+<!-- 5 · steps 4-6 -->
+<section class="page">
+  <h2>الخطوات <span class="red">4 – 6</span>: اصنع الريل</h2>
+
+  <div class="step">
+    <div>
+      <div class="num">4</div>
+      <h3>خلّيه يفحص جهازك <span class="time">دقيقة تقريبًا</span></h3>
+      <div class="say">افحص جهازي وشوف ايش ناقص</div>
+      <p>اكتب الجملة في خانة المحادثة. يفحص، ويثبّت الحزم الناقصة بنفسه، ويقول لك النتيجة.</p>
+      <p class="mute">لو طلب منك التطبيق الإذن بتشغيل أمر، وافق. لو قال إن <span class="ltr">Node.js</span> ناقص، ارجع لصفحة 3.</p>
+    </div>
+    <div class="ill">
+      <div class="win">
+        <div class="term">
+          <div>فحص الجهاز — <span style="direction:ltr;unicode-bidi:isolate">Reel Maker Lite</span></div>
+          <div><span class="ok">✓</span> <span style="direction:ltr;unicode-bidi:isolate">Node.js: v22</span></div>
+          <div><span class="ok">✓</span> <span style="direction:ltr;unicode-bidi:isolate">npm: v11</span></div>
+          <div><span class="ok">✓</span> برنامج الحركة والفيديو: مثبّت</div>
+          <div><span class="ok">✓</span> الصوت (اختياري): لا يوجد مفتاح</div>
+          <div style="margin-top:1.5mm">الأساسيات جاهزة. اكتب موضوع الريل.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div>
+      <div class="num">5</div>
+      <h3>اكتب موضوع الريل في سطر <span class="time">2–4 دقائق</span></h3>
+      <div class="say">سوّي ريل عن ليش أكل الطيارة ماله طعم</div>
+      <p>يكتب النص، يبني المشاهد، يراجع صورها، ثم يصدّر الفيديو.</p>
+      <p><b>وين ألقى الفيديو؟</b> داخل مجلدك: <span class="path">AI Video Editor › out</span></p>
+      <p class="mute">أول مرة فيها دقيقة أو دقيقتان هادئتان (ينزّل متصفح الرسم). هذا طبيعي.</p>
+    </div>
+    <div class="ill">
+      <img class="shot" style="left:7mm" src="img/scene-01.png" alt="">
+      <img class="shot" style="left:28mm" src="img/scene-03.png" alt="">
+      <img class="shot" style="left:49mm" src="img/scene-04.png" alt="">
+      <img class="shot" style="left:70mm" src="img/scene-06.png" alt="">
+    </div>
+  </div>
+
+  <div class="step">
+    <div>
+      <div class="num">6</div>
+      <h3>لو شي ما عجبك، قل له</h3>
+      <div class="say">خلّي البداية أقوى، وغيّر اللون للأزرق</div>
+      <p>قل له بكلامك العادي، مثل ما تقول لمونتير: يعدّل ويصدّر من جديد في المجلد نفسه.</p>
+      <p class="mute">أمثلة: «احذف المشهد الثالث»، «خلّي الخلفية غامقة»، «قصّر النص»، «اكتب اسم حسابي فوق».</p>
+    </div>
+    <div class="ill">
+      <div class="win light">
+        <div style="direction:rtl;font-size:8.5pt;color:#6f6b63;margin-bottom:1.5mm">قبل</div>
+        <div style="direction:rtl;font-size:10pt;color:#9a958b;margin-bottom:4mm">ليش أكل الطيارة ماله طعم؟</div>
+        <div style="direction:rtl;font-size:8.5pt;color:#6f6b63;margin-bottom:1mm">بعد</div>
+        <div style="direction:rtl;font-size:16pt;font-weight:700;line-height:1.3">أكل الطيارة <span style="color:#1F6FEB">ماله طعم؟</span><br>السبب في لسانك</div>
+      </div>
+    </div>
+  </div>
+  <div class="note"><p><b>راجع النص قبل النشر.</b> Claude يكتب النص من معلوماته ولا يتحقق منها بدلًا عنك. لو فيه معلومة غلط، قل له يصحّحها.</p></div>
+  <div class="foot"><span>الخطوات 4 – 6</span><span>5</span></div>
+</section>
+
+<!-- 6 · your voice -->
+<section class="page tight">
+  <h2>أضف صوتك <span class="time">اختياري · مجاني</span></h2>
+  <p>بدون صوت، الريل يخرج بكلام مكتوب يظهر كلمة كلمة، وهذا يكفي للنشر. لو تشتي تعليقًا صوتيًا، هذي الطريقة المختبرة: صوتك أنت، من جوالك، بدون أي حساب.</p>
+
+  <div class="step" style="margin-top:3mm">
+    <div>
+      <div class="num">1</div>
+      <h3>اطلب منه النص</h3>
+      <div class="say">ارسل لي نص الريل عشان أسجّله</div>
+      <p>يعطيك الأسطر بالترتيب. هي محفوظة أيضًا في ملف <span class="ltr">script.txt</span> داخل مجلد الريل.</p>
+    </div>
+    <div class="ill">
+      <div class="win light">
+        <div class="bar"><i></i><i></i><i></i><b>script.txt</b></div>
+        <div style="direction:rtl;font-size:9pt;line-height:1.9">
+          ليش أكل الطيارة ماله طعم؟<br>المشكلة مش في الأكل…<br>في الطيارة ثلاثة أشياء تتغيّر…<br><span style="color:#aaa">…</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div>
+      <div class="num">2</div>
+      <h3>سجّل في جوالك</h3>
+      <ul>
+        <li>تسجيل <b>واحد</b> متصل، بنفس ترتيب الأسطر.</li>
+        <li>بدون مقدمة، وبدون وقفات طويلة بين الأسطر.</li>
+        <li>مكان هادئ، والجوال قريب من فمك.</li>
+        <li>اقرأ الأسطر كما هي: لو غيّرت كلامًا، قل له ايش غيّرت.</li>
+      </ul>
+    </div>
+    <div class="ill">
+      <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:22mm;height:36mm;border:0.6mm solid var(--ink);border-radius:4mm;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm">
+        <div style="display:flex;gap:0.8mm;align-items:center;height:12mm">
+          <i style="width:1mm;height:4mm;background:#161616;display:block"></i><i style="width:1mm;height:9mm;background:#161616;display:block"></i><i style="width:1mm;height:6mm;background:#161616;display:block"></i><i style="width:1mm;height:11mm;background:#161616;display:block"></i><i style="width:1mm;height:5mm;background:#161616;display:block"></i><i style="width:1mm;height:8mm;background:#161616;display:block"></i><i style="width:1mm;height:3mm;background:#161616;display:block"></i>
+        </div>
+        <div style="width:8mm;height:8mm;border-radius:50%;background:var(--red)"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div>
+      <div class="num">3</div>
+      <h3>انقل الملف وقل له</h3>
+      <p>ارسل التسجيل لكمبيوترك (بالإيميل أو واتساب ويب أو كيبل)، وحطّه داخل مجلد <span class="ltr">AI Video Editor</span>. الصيغ المقبولة: <span class="ltr">mp3</span> و<span class="ltr">m4a</span> و<span class="ltr">wav</span>.</p>
+      <div class="say">سجّلت صوتي وحطّيت الملف في المجلد، صدّر الريل بالصوت</div>
+    </div>
+    <div class="ill">
+      <div class="folder" style="left:50%;top:56%;transform:translate(-50%,-50%)">AI Video Editor</div>
+      <div style="position:absolute;left:50%;top:6mm;transform:translateX(-50%);background:var(--ink);color:var(--paper);border-radius:2mm;padding:1.2mm 4mm;font-family:Consolas,monospace;font-size:8.5pt">🎙 voice.m4a ↓</div>
+    </div>
+  </div>
+
+  <div class="note"><p><b>عن التزامن:</b> طول الريل يتبع تسجيلك، وكل مشهد يأخذ حصته من التسجيل حسب طول سطره. هذا تقدير، لا استماع للتسجيل: في اختبارنا بتعليق حقيقي تبدّل كل مشهد خلال 0.2 ثانية من بداية سطره. لو مشهد يسبق أو يتأخر، قل له أي مشهد.</p></div>
+  <div class="card" style="margin-top:4mm">
+    <h3>وصوت الذكاء الاصطناعي؟</h3>
+    <p style="margin:0">في المستودع أداة لصوت <span class="ltr">ElevenLabs</span> بحسابك ورصيدك أنت (انسخ <span class="ltr">.env.example</span> إلى <span class="ltr">.env</span> وضع مفتاحك). <b>هذه الأداة لم نختبرها بعد</b>، فاعتبرها تجريبية. مفتاحك يبقى في ملف <span class="ltr">.env</span> على جهازك فقط: لا تكتبه في المحادثة ولا ترسله لأحد.</p>
+  </div>
+  <div class="foot"><span>أضف صوتك</span><span>6</span></div>
+</section>
+
+<!-- 7 · lite vs pro + troubleshooting -->
+<section class="page tight">
+  <h2>بصدق: ايش في Lite وايش في النظام الاحترافي</h2>
+  <p class="mute">الريل الذي أوصلك لهذا الدليل صُنع بالنظام الاحترافي لـ GAOBA AI. نسخة Lite تمشي على الخطوات الست نفسها، لكنها أبسط:</p>
+  <table>
+    <tr><th style="width:37%">ما يقوله الريل</th><th style="width:33%">في نسخة Lite</th><th>في النظام الاحترافي فقط</th></tr>
+    <tr><td>الخطوات 1–4 والخطوة 6</td><td><span class="yes">كما هي</span></td><td>—</td></tr>
+    <tr><td>«بيكتب النص»</td><td><span class="yes">نعم</span>، 5–8 مشاهد</td><td>بحث ومصادر واختبار فهم</td></tr>
+    <tr><td>«ويسجّل الصوت»</td><td><span class="part">جزئيًا</span>: صوتك أنت (مختبر)، أو <span class="ltr">ElevenLabs</span> بحسابك (غير مختبر)</td><td>صوت مستنسخ ومحاذاة لكل كلمة</td></tr>
+    <tr><td>«ويحرّك كل مشهد»</td><td><span class="yes">نعم</span>، بستة قوالب جاهزة</td><td>مشاهد تُبنى لكل ريل، ثلاثية الأبعاد، وكاميرا</td></tr>
+    <tr><td>«ويضبط الكلام اللي على الشاشة مع كل كلمة»</td><td><span class="part">بالتقدير</span>، لا بالاستماع للصوت</td><td>توقيت حقيقي من التسجيل</td></tr>
+    <tr><td>«ويفحص الحركة قبل ما تشوفها»</td><td><span class="part">يفحص صورة من كل مشهد</span></td><td>فحص للحركة والصوت وفيديو المعاينة</td></tr>
+    <tr><td>موسيقى ومؤثرات صوتية</td><td><span class="nop">لا</span></td><td>نعم</td></tr>
+  </table>
+
+  <h3 style="margin-top:4mm">لو وقفت</h3>
+  <table>
+    <tr><th style="width:37%">المشكلة</th><th>الحل</th></tr>
+    <tr><td>«<span class="ltr">npm</span> غير معروف»</td><td><span class="ltr">Node.js</span> غير مثبّت أو التطبيق لم يُعد تشغيله. ثبّته (صفحة 3)، أغلق تطبيق <span class="ltr">Claude</span> وافتحه، ثم أعد الفحص.</td></tr>
+    <tr><td>هادئ لدقيقة أو دقيقتين أول مرة</td><td>ينزّل متصفح الرسم (حوالي <span class="ltr">130 MB</span>). انتظر.</td></tr>
+    <tr><td>الخط غريب أو الحروف مقطّعة</td><td>لا يوجد إنترنت وقت التصدير، فلم يُحمَّل الخط.</td></tr>
+    <tr><td>Claude لا يعرف ايش تقصد</td><td>تأكد أنك اخترت <span class="ltr">Local</span> والمجلد الصحيح (صفحة 4)، وابدأ محادثة جديدة.</td></tr>
+    <tr><td>نص مقصوص أو صغير في مشهد</td><td>قل له: «النص في المشهد كذا طويل، قصّره».</td></tr>
+  </table>
+
+  <div class="card" style="margin-top:4mm">
+    <h3>الترخيص</h3>
+    <p style="font-size:10pt;margin:0">كود المستودع برخصة <span class="ltr">MIT</span>. يعتمد على <span class="ltr">Remotion</span> وله رخصته الخاصة: مجاني للأفراد والفرق الصغيرة، ومدفوع للشركات الأكبر. اقرأ <span class="ltr">remotion.dev/license</span> قبل الاستخدام التجاري. الخط <span class="ltr">Readex Pro</span> برخصة <span class="ltr">SIL OFL</span>.</p>
+  </div>
+  <div class="linkbox" style="margin-top:4mm;padding:3mm 7mm">
+    <h3>رابط المستودع على GitHub</h3>
+    <div class="u">https://github.com/A-Gaoba/gaoba-ai-reel-maker-lite</div>
+  </div>
+  <div class="foot"><span>Lite والنظام الاحترافي · المشاكل الشائعة</span><span>7</span></div>
+</section>
+
+</body>
+</html>
